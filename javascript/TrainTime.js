@@ -18,7 +18,7 @@ $(document).ready(function(){
   var frequency=0;
 
  // create button function
-  $("#addTime").on('click',function(){
+  $("#addTrainbtn").on('click',function(){
     // clean up and set the input value
 	  var trainname=$("#trainname").val().trim();
 	  var destination=$("#destination").val().trim();
@@ -36,7 +36,51 @@ $(document).ready(function(){
   			traintime1 : traintime1,
   			frequency: frequency			
   		});
-    // return false;
+    return false;
   });
+
+  //Firebase watcher + Add new entry for the train schedule
+
+
+database.ref().on("child_added", function(snapshot) {
+
+  // Log everything that's coming out of snapshot
+  console.log(snapshot.val());
+  console.log(snapshot.val().trainname);
+  console.log(snapshot.val().destination);
+  console.log(snapshot.val().traintime1);
+  console.log(snapshot.val().frequency);
+
+  // Add entry into table
+  var trainname=snapshot.val().trainname;
+  var destination=snapshot.val().destination;
+  var traintime1=snapshot.val().traintime1;
+  var frequency=snapshot.val().frequency;
+  var tr=$("<tr>");
+  var a=$("<td>");
+  var b=$("<td>");
+  var c=$("<td>");
+  var d=$("<td>");
+  var e=$("<td>");
+
+  a.append(trainname);
+  b.append(destination);
+  c.append(frequency);
+  d.append("");
+  e.append("");
+
+  tr.append(a).append(b).append(c).append(d).append(e);
+ 
+
+  $('#tSchedule').append(tr);
+ 
+
+// Handle the errors
+  }, function(errorObject){
+
+  console.log("Errors handled: " + errorObject.code)
+});
+
+
 
 });
