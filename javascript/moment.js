@@ -10,6 +10,19 @@ $(document).ready(function(){
   };
   firebase.initializeApp(config);
 
+  var database=firebase.database();
+
+  var trainnames="";
+  var destinations="";
+  var traintime1s="";
+  var frequencies="";
+
+  var trainname=$("#trainname").val().trim();
+  var destination=$("#destination").val().trim();
+  var traintime1=$("#traintime1").val().trim();
+  var frequency=$("frequency").val().trim();
+
+
 
 
 
