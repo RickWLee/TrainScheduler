@@ -37,11 +37,33 @@
 <!-- create div "Tschedule" so all the current schedule can put in -->
 <div class="Tschedule"></div>
 
+<!-- create form to input for current train schedule -->
+
 <div class="panel panel-primary">
   <div class="panel-heading" style="font-weight:bold">Current Train Schedule</div>
+  <div class="panel-body">
+    <form>
+        <div class="form-group">
+          <label for="trainname">Train Name</label>
+          <input type="email" class="form-control" id="trainname">
+        </div>
+        <div class="form-group">
+          <label for="destination">Destination</label>
+          <input type="password" class="form-control" id="destination">
+        </div>
+        <div class="form-group">
+          <label for="traintime1">First Train Time (HH:mm - military time)</label>
+          <input type="email" class="form-control" id="traintime1">
+        </div>
+        <div class="form-group">
+          <label for="frequency">Frequency (min)</label>
+          <input type="password" class="form-control" id="frequency">
+        </div>
 
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 
-
+  </div>
 
 </div>
 <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
