@@ -36,13 +36,15 @@ $(document).ready(function(){
   			traintime1 : traintime1,
   			frequency: frequency			
   		});
+    $('.add-form input').val('');
+    // clear the fields
     return false;
   });
 
   //Firebase watcher + Add new entry for the train schedule
 
 
-database.ref().on("child_added", function(snapshot) {
+function onSuccess(snapshot) {
 
   // Log everything that's coming out of snapshot
   console.log(snapshot.val());
@@ -56,6 +58,15 @@ database.ref().on("child_added", function(snapshot) {
   var destination=snapshot.val().destination;
   var traintime1=snapshot.val().traintime1;
   var frequency=snapshot.val().frequency;
+
+
+//create for loop to add time arrays 
+//use if-then statement to find the immediate next time schedule for the train.
+//use moment(converteddate).toNow()
+//use moment(converteddate).format("HH:mm")
+//select that value and post into the time table.
+//calculate how long you have to wait and post the waiting time in the time table.
+
   var tr=$("<tr>");
   var a=$("<td>");
   var b=$("<td>");
@@ -73,13 +84,15 @@ database.ref().on("child_added", function(snapshot) {
  
 
   $('#tSchedule').append(tr);
- 
+}
 
-// Handle the errors
-  }, function(errorObject){
 
+function onFailure(errorObject) {
   console.log("Errors handled: " + errorObject.code)
-});
+}
+
+
+database.ref().on("child_added", onSuccess, onFailure);
 
 
 
