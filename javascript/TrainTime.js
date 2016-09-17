@@ -53,20 +53,33 @@ function onSuccess(snapshot) {
   console.log(snapshot.val().traintime1);
   console.log(snapshot.val().frequency);
 
-  // Add entry into table
+ 
   var trainname=snapshot.val().trainname;
   var destination=snapshot.val().destination;
   var traintime1=snapshot.val().traintime1;
   var frequency=snapshot.val().frequency;
 
+  //calculating next train schedule and minute to wait
+  var traintime1=moment(traintime1,'HH:mm')
+  console.log("first time ="+traintime1)
+  var timeNow=moment();
+  console.log("time now ="+timeNow);
+  var timeBetween=timeNow.diff(traintime1, 'minute');
+  console.log("timeBetween =" + timeBetween);
+  var timelastTrainLeft=timeBetween%frequency;
+  console.log("timeTrain last left =" +timelastTrainLeft);
+  var minAway= frequency - timelastTrainLeft;
+  console.log("Minute Away =" +minAway);
 
-//create for loop to add time arrays 
-//use if-then statement to find the immediate next time schedule for the train.
-//use moment(converteddate).toNow()
-//use moment(converteddate).format("HH:mm")
-//select that value and post into the time table.
-//calculate how long you have to wait and post the waiting time in the time table.
+  //Next arrival time
+  var nextTrain = moment().add(minAway,"minute");
+  console.log("Arrival Time: "+moment(nextTrain).format("HH:mm"));
+  nextTrain= moment(nextTrain).format("HH:mm");
 
+
+
+
+ // Add entry into table
   var tr=$("<tr>");
   var a=$("<td>");
   var b=$("<td>");
@@ -77,8 +90,8 @@ function onSuccess(snapshot) {
   a.append(trainname);
   b.append(destination);
   c.append(frequency);
-  d.append("");
-  e.append("");
+  d.append(nextTrain);
+  e.append(minAway);
 
   tr.append(a).append(b).append(c).append(d).append(e);
  
